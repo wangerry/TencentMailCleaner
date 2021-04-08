@@ -1,0 +1,13 @@
+cleaner:
+  host: imap.exmail.qq.com
+  user: ""
+  pass: ""
+  days: 365
+  folders:
+    excludes: ["Deleted Messages", "Junk", "Drafts", "Sent Messages", "INBOX"]
+    includes: []
+  rules:
+
+logging:
+  pattern:
+    console: "%magenta(%d{yyyy-MM-dd HH:mm:ss.SSS}) | %msg%n"
