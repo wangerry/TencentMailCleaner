@@ -37,6 +37,7 @@ public class Cleaner {
     log.info(" * Clean {} before {}", folder, dateTimeToString(daysBeforeNow));
     folder.open(Folder.READ_WRITE);
     int messageCount = folder.getMessageCount();
+    log.info("   % total count {}", messageCount);
     if (messageCount == 0) {
       return;
     }
