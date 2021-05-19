@@ -44,9 +44,16 @@ public class Cleaner {
 
     while (folder.getMessage(1).getSentDate().before(daysBeforeNow)) {
       messageCount = folder.getMessageCount();
-      if (messageCount == 0) {
+      if (messageCount == 1) {
+        Message message = folder.getMessage(1);
+        if (message.getSentDate().before(daysBeforeNow)) {
+          log.info("   |- delete 1");
+          folder.setFlags(1, 1, new Flags(Flags.Flag.DELETED), true);
+          folder.expunge();
+        }
         return;
       }
+
       int left = 1;
       int right = messageCount;
       int point = (right - left) / 2 + 1;
@@ -71,10 +78,10 @@ public class Cleaner {
         if (point - currentPoint < step) {
           end = point - currentPoint + 1;
         }
-        if (end < step) {
-          log.info("   |- delete {}", end);
+        if (end == 1) {
+          log.info("   |- delete 1");
         } else {
-          log.info("   |- delete {} - {}", currentPoint, currentPoint + end);
+          log.info("   |- delete {} - {}", currentPoint, currentPoint + end - 1);
         }
         folder.setFlags(1, end, new Flags(Flags.Flag.DELETED), true);
         folder.expunge();
